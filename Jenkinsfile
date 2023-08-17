@@ -31,8 +31,8 @@ pipeline {
                     try {
                         // Ваш код здесь
                     } finally {
-                        sh "sleep 20"
-                        sh "docker stop ${container.id}"
+                       // sh "sleep 20"
+                      //  sh "docker stop ${container.id}"
                     }
                 }
             }
