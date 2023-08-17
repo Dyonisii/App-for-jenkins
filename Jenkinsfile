@@ -14,15 +14,16 @@
         }
         stage('docker run') {
             steps {
+                echo "============= docker run =================="
                 script {
                     def tomcatContainer = docker.image('k8stest')
                     def container = tomcatContainer.run("-p 7777:80")
                     
                     try {
                         //sleep(time: 15, unit: 'SECONDS')
-                        // Выполняйте дополнительные команды внутри контейнера (если требуется)
+                         
                     } finally {
-                        // Контейнер будет автоматически остановлен после завершения этапа
+                    
                         sh "sleep 20"
                         sh "docker stop ${container.id}"
                         sh "docker rm ${container.id}"
