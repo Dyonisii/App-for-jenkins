@@ -1,6 +1,16 @@
  pipeline {
     agent { label 'Ubuntu_ansible' }
     stages {
+        stage("Checkout") {
+            steps {
+                echo "============= Cloning repository =================="
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']], 
+                    userRemoteConfigs: [[url: 'https://github.com/Dyonisii/App-for-jenkins.git']] 
+                ])
+            }
+        }
         stage("docker login") {
             steps {
                 echo "============= docker login =================="
