@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo " ============== start building image ================"
                 dir ('.') {
-                	sh 'docker build -t webapp:latest . '
+                	sh 'docker build -t dyonisii/webapp:latest . '
                     sh 'ls -la'
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 echo "=============== docker run =================="
                 script {
-                    def tomcatContainer = docker.image('webapp:latest')
+                    def tomcatContainer = docker.image('dyonisii/webapp:latest')
                     def container = tomcatContainer.run("-p 7777:80")
                     try {
                         //sleep(time: 15, unit: 'SECONDS')
