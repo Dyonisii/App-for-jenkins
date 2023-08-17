@@ -26,7 +26,7 @@
             steps {
                 echo "============= docker run =================="
                 script {
-                    def tomcatContainer = docker.image('k8stest')
+                    def tomcatContainer = docker.image('dyonisii/k8stest:latest')
                     def container = tomcatContainer.run("-p 7777:80")
                     
                     try {
