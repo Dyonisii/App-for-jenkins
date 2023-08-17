@@ -53,7 +53,7 @@ pipeline {
                 docker push dyonisii/webapp:latest
                 ls -la
                 '''
-                sh "docker rm ${container.id}"
+               // sh "docker rm ${container.id}"
             }
         }
     }
