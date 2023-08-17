@@ -15,14 +15,24 @@ pipeline {
             steps {
                 echo "============= docker run =================="
                 script {
-                    def tomcatContainer = docker.image('dyonisii/k8stest:latest')
-                    def container = tomcatContainer.run("-p 7777:80")
+                    def imageName = 'dyonisii/k8stest:latest'
+                    def containerName = imageName.replaceAll('/', '_').replaceAll(':', '_')
+                    
+                    // Остановить существующий контейнер с указанным именем, если он запущен
                     try {
-                        //sleep(time: 15, unit: 'SECONDS')
+                        sh "docker stop $containerName"
+                        sh "docker rm $containerName"
+                    } catch (Exception e) {
+                        // Пропустить ошибку, если контейнер не был найден или не запущен
+                    }
+                    
+                    def tomcatContainer = docker.image(imageName)
+                    def container = tomcatContainer.run("-p 7777:80", name: containerName)
+                    try {
+                        // Ваш код здесь
                     } finally {
-                        //sh "sleep 20"
-                        //sh "docker stop ${container.id}"
-                       // sh "docker rm ${container.id}"
+                        sh "sleep 20"
+                        sh "docker stop ${container.id}"
                     }
                 }
             }
