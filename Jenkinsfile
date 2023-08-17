@@ -1,5 +1,5 @@
  pipeline {
-    agent { label 'Ubuntu_AWS' }
+    agent { label 'Ubuntu_ansible' }
     stages {
         stage("docker login") {
             steps {
