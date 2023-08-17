@@ -50,7 +50,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="               
                 sh '''
-                docker push dyonisii/webapp:latest
+                docker push dyonisii/webapp
                 ls -la
                 '''
             }
