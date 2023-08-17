@@ -49,6 +49,9 @@ pipeline {
          stage("docker push") {
             steps {
                 echo " ============== start pushing image =================="
+                script {
+                docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
+                }
                 sh '''
                 docker push dyonisii/webapp:latest
                 ls -la
