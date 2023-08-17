@@ -55,5 +55,6 @@ pipeline {
                 '''
                 sh "docker rm ${container.id}"
             }
+        }
     }
 }
