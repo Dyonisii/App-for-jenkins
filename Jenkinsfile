@@ -11,31 +11,49 @@ pipeline {
                 ])
             }
         }
-        stage('docker run') {
+        stage("docker login") {
             steps {
-                echo "============= docker run =================="
+                echo "============= docker login ========================="
                 script {
-                    def imageName = 'dyonisii/k8stest:latest'
-                    def containerName = imageName.replaceAll('/', '_').replaceAll(':', '_')
-                    
-                    // Остановить существующий контейнер с указанным именем, если он запущен
-                    try {
-                        sh "docker stop $containerName"
-                        sh "docker rm $containerName"
-                    } catch (Exception e) {
-                        // Пропустить ошибку, если контейнер не был найден или не запущен
-                    }
-                    
-                    def tomcatContainer = docker.image(imageName)
-                    def container = tomcatContainer.run("-p 7777:80", name: containerName)
-                    try {
-                        // Ваш код здесь
-                    } finally {
-                       // sh "sleep 20"
-                      //  sh "docker stop ${container.id}"
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
                     }
                 }
             }
         }
+        stage("create docker image") {
+            steps {
+                echo " ============== start building image ================"
+                dir ('.') {
+                	sh 'docker build -t dyonisii/webapp:latest . '
+                    sh 'ls -la'
+                }
+            }
+        }
+        stage('docker run') {
+            steps {
+                echo "=============== docker run =================="
+                script {
+                    def tomcatContainer = docker.image('dyonisii/webapp:latest')
+                    def container = tomcatContainer.run("-p 7777:80")
+                    try {
+                        //sleep(time: 15, unit: 'SECONDS')
+                    } finally {
+                        sh "sleep 20"
+                        sh 'ls -la'
+                        sh "docker stop ${container.id}"
+                        // sh "docker rm ${container.id}"
+                    }
+                }
+            }
+        }
+         stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push dyonisii/webapp:latest
+                ls -la
+                '''
+                sh "docker rm ${container.id}"
+            }
     }
 }
