@@ -1,4 +1,4 @@
- pipeline {
+pipeline {
     agent { label 'Ubuntu_ansible' }
     stages {
         stage("Checkout") {
@@ -9,15 +9,6 @@
                     branches: [[name: '*/main']], 
                     userRemoteConfigs: [[url: 'https://github.com/Dyonisii/App-for-jenkins.git']] 
                 ])
-            }
-        }
-        stage("docker login") {
-            steps {
-                echo "============= docker login =================="
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
-                    }
-                }
             }
         }
         stage('docker run') {
