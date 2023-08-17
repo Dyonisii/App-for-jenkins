@@ -20,9 +20,9 @@ pipeline {
                     try {
                         //sleep(time: 15, unit: 'SECONDS')
                     } finally {
-                        sh "sleep 20"
-                        sh "docker stop ${container.id}"
-                        sh "docker rm ${container.id}"
+                        //sh "sleep 20"
+                        //sh "docker stop ${container.id}"
+                       // sh "docker rm ${container.id}"
                     }
                 }
             }
