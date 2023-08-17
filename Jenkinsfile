@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo " ============== start building image ================"
                 dir ('.') {
-                	sh 'docker build -t dyonisii/webapp:latest . '
+                	sh 'docker build -t dyonisii/webapp:latest . '      //BUOLD_ID
                     sh 'ls -la'
                 }
             }
@@ -53,6 +53,7 @@ pipeline {
                 docker push dyonisii/webapp
                 ls -la
                 '''
+                sh "docker rmi ${container.id}"
             }
         }
     }
