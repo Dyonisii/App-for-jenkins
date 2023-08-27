@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo " ============== start building image ================"
                 dir ('.') {
-                	sh 'docker build -t dyonisii/webapp:$BUILD_ID . '      //BUOLD_ID
+                	sh 'docker build -t dyonisii/webapp:${normalizedBuildId} . '      //BUOLD_ID
                     sh 'ls -la'
                }
             }
@@ -33,7 +33,8 @@ pipeline {
             steps {
                 echo "=============== docker run =================="
                script {
-                    def tomcatContainer = docker.image('dyonisii/webapp:$BUILD_ID')
+                    def normalizedBuildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.-]", "_")
+                    def tomcatContainer = docker.image('dyonisii/webapp:${normalizedBuildId}')
                     def container = tomcatContainer.run("-p 7777:80")
                     try {
                         //sleep(time: 15, unit: 'SECONDS')
@@ -50,7 +51,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="               
                 sh '''
-                docker push dyonisii/webapp:$BUILD_ID
+                docker push ${tomcatContainer}
                 ls -la
                 '''
                 //sh "docker rmi ${container.id}"
