@@ -1,4 +1,4 @@
-def normalizedBuildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.]")
+def normalizedBuildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.-]", "_")
 
 pipeline {
     agent { label 'Ubuntu_ansible' }
