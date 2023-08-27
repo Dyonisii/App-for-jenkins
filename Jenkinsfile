@@ -29,32 +29,32 @@ pipeline {
                }
             }
         }
- //       stage('docker run') {
- //           steps {
-   //             echo "=============== docker run =================="
-       //        script {
-         //           def tomcatContainer = docker.image('dyonisii/webapp:$BUILD_ID')
-         //           def container = tomcatContainer.run("-p 7777:80")
-         //           try {
-          //              //sleep(time: 15, unit: 'SECONDS')
-           //         } finally {
-       ////                 sh "sleep 20"
-         //               sh 'ls -la'
-         //               sh "docker stop ${container.id}"
-            //            sh "docker rm ${container.id}"
-         //           }
-         //       }
-       //     }
-     //   }
-         stage("docker push") {
+        stage('docker run') {
             steps {
-                echo " ============== start pushing image =================="               
-                sh '''
-                docker push dyonisii/webapp:$BUILD_ID
-                ls -la
-                '''
-                //sh "docker rmi ${container.id}"
+                echo "=============== docker run =================="
+               script {
+                    def tomcatContainer = docker.image('dyonisii/webapp:$BUILD_ID')
+                    def container = tomcatContainer.run("-p 7777:80")
+                    try {
+                        //sleep(time: 15, unit: 'SECONDS')
+                    } finally {
+                        sh "sleep 20"
+                        sh 'ls -la'
+                        sh "docker stop ${container.id}"
+                        sh "docker rm ${container.id}"
+                    }
+                }
             }
         }
+      //   stage("docker push") {
+         //   steps {
+          //      echo " ============== start pushing image =================="               
+          //      sh '''
+          //      docker push dyonisii/webapp:$BUILD_ID
+          //      ls -la
+          //      '''
+          //      //sh "docker rmi ${container.id}"
+          //  }
+       // }
     }
 }
