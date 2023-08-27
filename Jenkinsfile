@@ -51,7 +51,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="               
                 sh '''
-                docker push ${tomcatContainer}
+                docker push dyonisii/webapp:${normalizedBuildId}
                 ls -la
                 '''
                 //sh "docker rmi ${container.id}"
