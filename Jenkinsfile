@@ -26,7 +26,7 @@ pipeline {
             steps {
                 echo " ============== start building image ================"
                 dir ('.') {
-                	sh 'docker build -t dyonisii/webapp:${normalizedBuildId} .'      //BUOLD_ID
+                	sh "docker build -t dyonisii/webapp:${normalizedBuildId} ."      //BUOLD_ID
                     sh 'ls -la'
                }
             }
