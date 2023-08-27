@@ -1,5 +1,3 @@
-def normalizedBuildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.-]", "_")
-
 pipeline {
     agent { label 'Ubuntu_ansible' }
     stages {
@@ -26,7 +24,7 @@ pipeline {
             steps {
                 echo " ============== start building image ================"
                 dir ('.') {
-                	sh "docker build -t dyonisii/webapp:${normalizedBuildId} ."      //BUOLD_ID
+                	sh "docker build -t dyonisii/webapp:${BUILD_ID} ."      //BUOLD_ID
                     sh 'ls -la'
                }
             }
@@ -35,13 +33,13 @@ pipeline {
             steps {
                 echo "=============== docker run =================="
                script {
-                    def tomcatContainer = docker.image("dyonisii/webapp:${normalizedBuildId}")
+                    def tomcatContainer = docker.image("dyonisii/webapp:${BUILD_ID}")
                     def container = tomcatContainer.run("-p 7777:80")
                     try {
                         //sleep(time: 15, unit: 'SECONDS')
                     } finally {
                         sh "sleep 20"
-                        sh 'ls -la'
+                        sh "ls -la"
                         sh "docker stop ${container.id}"
                         sh "docker rm ${container.id}"
                     }
@@ -51,7 +49,8 @@ pipeline {
          stage("docker push") {
             steps {
                 echo " ============== start pushing image =================="               
-                sh "docker push dyonisii/webapp:${normalizedBuildId}"
+                //sh "docker push dyonisii/webapp:${BUILD_ID}"
+                sh "docker push ${tomcatContainer}"
                 sh "ls -la"
                 
                 //sh "docker rmi ${container.id}"
