@@ -13,7 +13,7 @@ pipeline {
         }
         stage("docker login") {
             steps {
-                echo "============= docker login ========================="
+                echo "============= Docker login ========================="
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
                     }
@@ -22,16 +22,16 @@ pipeline {
         }
         stage("create docker image") {
             steps {
-                echo " ============== start building image ================"
+                echo "============== Start building image ================"
                 dir ('.') {
-                	sh "docker build -t dyonisii/webapp:${BUILD_ID} ."      //BUOLD_ID
+                	sh "docker build -t dyonisii/webapp:${BUILD_ID} ."
                     sh 'ls -la'
                }
             }
         }
         stage('docker run') {
             steps {
-                echo "=============== docker run =================="
+                echo "=============== Docker run =================="
                script {
                     def tomcatContainer = docker.image("dyonisii/webapp:${BUILD_ID}")
                     def container = tomcatContainer.run("-p 7777:80")
@@ -48,12 +48,11 @@ pipeline {
         }
          stage("docker push") {
             steps {
-                echo " ============== start pushing image =================="               
+                echo "============== Start pushing image =================="               
                 sh "docker push dyonisii/webapp:${BUILD_ID}"
                 //sh "docker push ${tomcatContainer}"
                 sh "ls -la"
-                
-                //sh "docker rmi ${container.id}"
+                sh "docker rmi dyonisii/webapp:${BUILD_ID}"
             }
         }
     }
