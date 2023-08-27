@@ -20,41 +20,41 @@ pipeline {
                 }
             }
         }
-      //  stage("create docker image") {
-          //  steps {
-           //     echo " ============== start building image ================"
-           //     dir ('.') {
-           //     	sh 'docker build -t dyonisii/webapp:latest . '      //BUOLD_ID
-             //       sh 'ls -la'
-            //   }
-           // }
-      //  }
-        stage('docker run') {
+        stage("create docker image") {
             steps {
-                echo "=============== docker run =================="
-                script {
-                    def tomcatContainer = docker.image('dyonisii/webapp:latest')
-                    def container = tomcatContainer.run("-p 7777:80")
-                    try {
-                        //sleep(time: 15, unit: 'SECONDS')
-                    } finally {
-                        sh "sleep 20"
-                        sh 'ls -la'
-                        sh "docker stop ${container.id}"
-                        sh "docker rm ${container.id}"
-                    }
-                }
+                echo " ============== start building image ================"
+                dir ('.') {
+                	sh 'docker build -t dyonisii/webapp:version1 . '      //BUOLD_ID
+                    sh 'ls -la'
+               }
             }
         }
-         //stage("docker push") {
-         //   steps {
-         //       echo " ============== start pushing image =================="               
-         //       sh '''
-          //      docker push dyonisii/webapp
-         //       ls -la
-         //       '''
+      //  stage('docker run') {
+        //    steps {
+         //       echo "=============== docker run =================="
+        //       script {
+         //           def tomcatContainer = docker.image('dyonisii/webapp:latest')
+          //          def container = tomcatContainer.run("-p 7777:80")
+         //           try {
+                        //sleep(time: 15, unit: 'SECONDS')
+         //           } finally {
+        //                sh "sleep 20"
+          //              sh 'ls -la'
+           //             sh "docker stop ${container.id}"
+          //              sh "docker rm ${container.id}"
+         //           }
+         //       }
+        //    }
+      //  }
+         stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="               
+                sh '''
+                docker push dyonisii/webapp:version1
+                ls -la
+                '''
                 //sh "docker rmi ${container.id}"
-         //   }
-        //}
+            }
+        }
     }
 }
