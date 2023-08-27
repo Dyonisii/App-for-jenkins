@@ -33,7 +33,7 @@ pipeline {
             steps {
                 echo "=============== docker run =================="
                 script {
-                    def tomcatContainer = docker.image('dyonisii/k8stest:latest')
+                    def tomcatContainer = docker.image('dyonisii/k8stest:versio3')
                     def container = tomcatContainer.run("-p 7777:80")
                     try {
                         //sleep(time: 15, unit: 'SECONDS')
