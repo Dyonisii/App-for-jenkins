@@ -53,7 +53,7 @@ pipeline {
                 docker push dyonisii/webapp
                 ls -la
                 '''
-                sh "docker rmi ${container.id}"
+                //sh "docker rmi ${container.id}"
             }
         }
     }
