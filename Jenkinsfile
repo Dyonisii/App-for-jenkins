@@ -1,4 +1,5 @@
 def normalizedBuildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.-]", "_")
+
 pipeline {
     agent { label 'Ubuntu_ansible' }
     stages {
@@ -25,7 +26,7 @@ pipeline {
             steps {
                 echo " ============== start building image ================"
                 dir ('.') {
-                	sh 'docker build -t dyonisii/webapp:${normalizedBuildId} . '      //BUOLD_ID
+                	sh 'docker build -t dyonisii/webapp:${normalizedBuildId} .'      //BUOLD_ID
                     sh 'ls -la'
                }
             }
