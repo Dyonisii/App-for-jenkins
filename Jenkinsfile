@@ -11,24 +11,24 @@ pipeline {
                 ])
             }
         }
-        stage("docker login") {
-            steps {
-                echo "============= docker login ========================="
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
-                    }
-                }
-            }
-        }
-        stage("create docker image") {
-            steps {
-                echo " ============== start building image ================"
-                dir ('.') {
-                	sh 'docker build -t dyonisii/webapp:latest . '      //BUOLD_ID
-                    sh 'ls -la'
-                }
-            }
-        }
+     //   stage("docker login") {
+       //     steps {
+           //     echo "============= docker login ========================="
+            //    script {
+             //       docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
+             //       }
+             //   }
+          //  }
+    //    }
+      //  stage("create docker image") {
+          //  steps {
+           //     echo " ============== start building image ================"
+           //     dir ('.') {
+           //     	sh 'docker build -t dyonisii/webapp:latest . '      //BUOLD_ID
+             //       sh 'ls -la'
+            //   }
+           // }
+      //  }
         stage('docker run') {
             steps {
                 echo "=============== docker run =================="
