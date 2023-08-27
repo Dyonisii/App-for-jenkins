@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo " ============== start building image ================"
                 dir ('.') {
-                	sh 'docker build -t dyonisii/webapp:version1 . '      //BUOLD_ID
+                	sh 'docker build -t dyonisii/webapp:$BUILD_ID . '      //BUOLD_ID
                     sh 'ls -la'
                }
             }
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="               
                 sh '''
-                docker push dyonisii/webapp:version1
+                docker push dyonisii/webapp:$BUILD_ID
                 ls -la
                 '''
                 //sh "docker rmi ${container.id}"
