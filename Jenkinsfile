@@ -46,15 +46,15 @@ pipeline {
                 }
             }
         }
-         stage("docker push") {
-            steps {
-                echo " ============== start pushing image =================="               
-                sh '''
-                docker push dyonisii/webapp
-                ls -la
-                '''
+         //stage("docker push") {
+         //   steps {
+         //       echo " ============== start pushing image =================="               
+         //       sh '''
+          //      docker push dyonisii/webapp
+         //       ls -la
+         //       '''
                 //sh "docker rmi ${container.id}"
-            }
-        }
+         //   }
+        //}
     }
 }
