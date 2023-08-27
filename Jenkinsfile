@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo "============== Start building image ================"
                 dir ('.') {
-                    sh "echo "Build by Jenkins Build# $BUILD_ID" >> index.html"
+                    echo "Build by Jenkins Build# $BUILD_ID" >> index.html
                 	sh "docker build -t dyonisii/webapp:${BUILD_ID} ."
                     sh 'ls -la'
                }
