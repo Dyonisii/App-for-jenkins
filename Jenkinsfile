@@ -11,15 +11,15 @@ pipeline {
                 ])
             }
         }
-     //   stage("docker login") {
-       //     steps {
-           //     echo "============= docker login ========================="
-            //    script {
-             //       docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
-             //       }
-             //   }
-          //  }
-    //    }
+        stage("docker login") {
+            steps {
+                echo "============= docker login ========================="
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-dyonisii') {
+                    }
+                }
+            }
+        }
       //  stage("create docker image") {
           //  steps {
            //     echo " ============== start building image ================"
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 echo "=============== docker run =================="
                 script {
-                    def tomcatContainer = docker.image('dyonisii/k8stest:versio3')
+                    def tomcatContainer = docker.image('dyonisii/webapp:latest')
                     def container = tomcatContainer.run("-p 7777:80")
                     try {
                         //sleep(time: 15, unit: 'SECONDS')
