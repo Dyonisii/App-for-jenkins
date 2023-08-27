@@ -1,3 +1,4 @@
+def normalizedBuildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.-]", "_")
 pipeline {
     agent { label 'Ubuntu_ansible' }
     stages {
@@ -33,7 +34,6 @@ pipeline {
             steps {
                 echo "=============== docker run =================="
                script {
-                    def normalizedBuildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.-]", "_")
                     def tomcatContainer = docker.image('dyonisii/webapp:${normalizedBuildId}')
                     def container = tomcatContainer.run("-p 7777:80")
                     try {
