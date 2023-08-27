@@ -49,8 +49,8 @@ pipeline {
          stage("docker push") {
             steps {
                 echo " ============== start pushing image =================="               
-                //sh "docker push dyonisii/webapp:${BUILD_ID}"
-                sh "docker push ${tomcatContainer}"
+                sh "docker push dyonisii/webapp:${BUILD_ID}"
+                //sh "docker push ${tomcatContainer}"
                 sh "ls -la"
                 
                 //sh "docker rmi ${container.id}"
